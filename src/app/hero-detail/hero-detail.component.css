@@ -1,0 +1,33 @@
+.skill {
+  width: 150px;
+  height: 15px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.characteristics {
+  width: fit-content;
+  text-align: right;
+
+}
+
+ul.weapons, mat-chip-list {
+  display: inline-block;
+}
+
+mat-chip-list {
+  min-width: 50px;
+}
+
+li.weapon {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+li.weapon:not(:last-child):after {
+  content: ", "
+}
+
+
+
+

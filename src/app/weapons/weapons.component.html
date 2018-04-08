@@ -1,0 +1,71 @@
+<h2>My Weapons</h2>
+<div>
+  <label>Weapon name:
+    <input #weaponName />
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(weaponName.value); weaponName.value=''">
+    add
+  </button>
+</div>
+<div class="filters">
+  <fieldset>
+    <legend>Filtered Search</legend>
+    <label class="filter">Filter by Name :
+      <mat-form-field>
+        <input matInput type="text" placeholder="Ex : Baton" (keyup)="filterWeapons()" [(ngModel)]="filterName"/>
+        <button mat-button *ngIf="filterName" matSuffix mat-icon-button aria-label="Clear" (click)="filterName=''; filterWeapons();">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </label>
+    <label class="filter">Attack From :
+      <mat-form-field><input matInput (ngModelChange)="filterWeapons()" [(ngModel)]="filterMinAttack" type="number" min="{{minPoints}}" max="{{maxPoints}}" placeholder="min attack"/></mat-form-field>
+      To :
+      <mat-form-field><input matInput (ngModelChange)="filterWeapons()" [(ngModel)]="filterMaxAttack" type="number" min="{{minPoints}}" max="{{maxPoints}}" placeholder="max attack"/></mat-form-field>
+    </label>
+    <label class="filter">Dodge From :
+      <mat-form-field><input matInput (ngModelChange)="filterWeapons()" [(ngModel)]="filterMinDodge" type="number" min="{{minPoints}}" max="{{maxPoints}}" placeholder="min dodge"/></mat-form-field>
+      To :
+      <mat-form-field><input matInput (ngModelChange)="filterWeapons()" [(ngModel)]="filterMaxDodge" type="number" min="{{minPoints}}" max="{{maxPoints}}" placeholder="max dodge"/></mat-form-field>
+    </label>
+    <label class="filter">Damage From :
+      <mat-form-field><input matInput (ngModelChange)="filterWeapons()" [(ngModel)]="filterMinDamage" type="number" min="{{minPoints}}" max="{{maxPoints}}" placeholder="min damage"/></mat-form-field>
+      To :
+      <mat-form-field><input matInput (ngModelChange)="filterWeapons()" [(ngModel)]="filterMaxDamage" type="number" min="{{minPoints}}" max="{{maxPoints}}" placeholder="max damage"/></mat-form-field>
+    </label>
+    <label class="filter">Health Points From :
+      <mat-form-field><input matInput (ngModelChange)="filterWeapons()" [(ngModel)]="filterMinHp" type="number" min="{{minPoints}}" max="{{maxPoints}}" placeholder="min hp"/></mat-form-field>
+      To :
+      <mat-form-field><input matInput (ngModelChange)="filterWeapons()" [(ngModel)]="filterMaxHp" type="number" min="{{minPoints}}" max="{{maxPoints}}" placeholder="max hp"/></mat-form-field>
+    </label>
+  </fieldset>
+</div>
+<div *ngIf="!filteredWeapons">
+  <mat-spinner></mat-spinner>
+</div>
+<table *ngIf="filteredWeapons" class="weapons" matSort (matSortChange)="sortData($event)">
+  <tr>
+    <th mat-sort-header="id">id</th>
+    <th mat-sort-header="name">Name</th>
+    <th mat-sort-header="attack">Attack</th>
+    <th mat-sort-header="dodge">Dodge</th>
+    <th mat-sort-header="damage">Damage</th>
+    <th mat-sort-header="hp">HP</th>
+    <th>Delete</th>
+  </tr>
+
+  <tr *ngFor="let weapon of filteredWeapons">
+    <a routerLink="/detail/weapon/{{weapon.id}}">
+      <td><span class="badge">{{weapon.id}}</span></td>
+    </a>
+    <td><a routerLink="/detail/weapon/{{weapon.id}}">{{weapon.name}}</a></td>
+    <td><a routerLink="/detail/weapon/{{weapon.id}}">{{weapon.attack}}</a></td>
+    <td><a routerLink="/detail/weapon/{{weapon.id}}">{{weapon.dodge}}</a></td>
+    <td><a routerLink="/detail/weapon/{{weapon.id}}">{{weapon.damage}}</a></td>
+    <td><a routerLink="/detail/weapon/{{weapon.id}}">{{weapon.hp}}</a></td>
+    <td><button class="delete" title="delete weapon" (click)="delete(weapon)">x</button></td>
+  </tr>
+</table>
+
+

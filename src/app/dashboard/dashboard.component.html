@@ -1,0 +1,13 @@
+<h3>Top Heroes</h3>
+<div *ngIf="!heroes">
+  <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="heroes" class="grid grid-pad">
+  <a *ngFor="let hero of heroes" class="col-1-4" routerLink="/detail/hero/{{hero.id}}">
+    <div class="module hero">
+      <h4>{{hero.name}}</h4>
+    </div>
+  </a>
+</div>
+
+<app-hero-search></app-hero-search>

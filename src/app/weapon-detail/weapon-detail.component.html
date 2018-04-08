@@ -1,0 +1,60 @@
+<div *ngIf="!weapon">
+  <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="weapon">
+
+  <h2>{{ weapon.name | uppercase }} Details</h2>
+  <form (ngSubmit)="save()" #weaponForm="ngForm">
+    <fieldset>
+      <legend>Global sheet</legend>
+      <div><span>id: </span>{{weapon.id}}</div>
+      <div>
+        <label>name:
+          <input [(ngModel)]="weapon.name" type="text" name="name" placeholder="name">
+        </label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Characteristics</legend>
+      <div class="characteristics">
+        <div>
+          <label>attack:
+            <mat-form-field>
+              <input matInput (ngModelChange)="updateForm()" [(ngModel)]="weapon.attack" type="number" name="attack" min="{{minPoints}}" max="{{maxPoints}}" placeholder="attack" required #attack="ngModel">
+            </mat-form-field>
+          </label>
+          <div [hidden]="attack.valid || attack.pristine">
+            Attack is required
+          </div>
+        </div>
+        <div>
+          <label>dodge:
+            <mat-form-field>
+            <input matInput (ngModelChange)="updateForm()" [(ngModel)]="weapon.dodge" type="number" name="dodge" min="{{minPoints}}" max="{{maxPoints}}" placeholder="dodge">
+            </mat-form-field>
+          </label>
+        </div>
+        <div>
+          <label>damage:
+            <mat-form-field>
+            <input matInput (ngModelChange)="updateForm()" [(ngModel)]="weapon.damage" type="number" name="damage" min="{{minPoints}}" max="{{maxPoints}}" placeholder="damage">
+            </mat-form-field>
+          </label>
+        </div>
+        <div>
+          <label>health points:
+            <mat-form-field>
+            <input matInput (ngModelChange)="updateForm()" [(ngModel)]="weapon.hp" type="number" name="hp" min="{{minPoints}}" max="{{maxPoints}}" placeholder="health points">
+            </mat-form-field>
+          </label>
+        </div>
+        <p>Remaining Points : {{remainingPoints}}</p>
+      </div>
+
+    </fieldset>
+    <button type="submit" [disabled]="!weaponForm.form.valid || remainingPoints!=0">Save</button>
+
+  </form>
+  <button (click)="goBack()">go back</button>
+
+</div>
